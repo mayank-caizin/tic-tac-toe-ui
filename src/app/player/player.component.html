@@ -6,13 +6,27 @@
   </div>
 </div>
 
-<!-- <div class="player-container">
-  <div class="player-info">
-    <p>{{player.name}}</p>
-    <p>{{player.email}}</p>
+<div *ngIf="currentGame; else gamesContainer">
+  <p>{{currentGame.id}}</p>
+  <p>{{ currentGame.board }}</p>
+</div>
+
+<ng-template #gamesContainer>
+  <div class="form-group">
+    <select [(ngModel)]="gameMode" class="form-select-sm">
+      <option selected [ngValue]=1> Play Against Computer </option>
+      <option [ngValue]=0> Play Locally </option>
+      <option [ngValue]=2> Play Against Friend </option>
+      <option [ngValue]=3> Play Online Multiplayer </option>
+    </select>
+    <button (click)="startNewGame()">New Game</button>
   </div>
 
-  <div>
-    <button class="btn btn-danger">Logout</button>
+  <div class="games-container" *ngIf="allMyGames.length">
+    <div *ngFor="let game of allMyGames">
+      <p>{{ game.id }}</p>
+      <p>{{ game.board }}</p>
+      <p>{{ game.isComplete }}</p>
+    </div>
   </div>
-</div> -->
+</ng-template>

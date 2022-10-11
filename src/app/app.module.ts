@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './home/login-page.component';
 import { SignupPageComponent } from './home/signup-page.component';
 import { PlayerComponent } from './player/player.component';
+import { BoardComponent } from './game/board.component';
+import { SquareComponent } from './game/square.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     SignupPageComponent,
-    PlayerComponent
+    PlayerComponent,
+    BoardComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,

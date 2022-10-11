@@ -1,3 +1,10 @@
 export interface Game {
-  id: string
+  id: string,
+  board: string,
+  gameMode: number,
+  isComplete: boolean,
+  xTurn: boolean,
+  xPlayerId: string,
+  oPlayerId: string,
+  winner: string
 }
