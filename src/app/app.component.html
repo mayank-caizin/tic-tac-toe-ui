@@ -1,5 +1,17 @@
 <div class="container">
   <h1> {{ title }} </h1>
 
-  <ttt-login-page></ttt-login-page>
+  <ttt-player *ngIf="player; else homeContainer" [player]="player" (logout)="logOutPlayer($event)"></ttt-player>
+
+  <ng-template #homeContainer>
+
+    <div>
+      <button type="button" class="btn btn-outline-primary" (click)="selectLogin()">Login</button>
+      <button type="button" class="btn btn-outline-primary" (click)="selectSignup()">Signup</button>
+    </div>
+
+    <ttt-login-page *ngIf="loginSelected; else signUpPage" (submitInfo)="logInPlayer($event)"></ttt-login-page>
+
+  <ng-template #signUpPage> <ttt-signup-page (submitInfo)="signUpPlayer($event)"></ttt-signup-page> </ng-template>
+  </ng-template>
 </div>
