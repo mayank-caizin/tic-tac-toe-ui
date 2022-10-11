@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Game } from '../models/game';
 
 @Injectable()
@@ -17,5 +18,17 @@ export class GameService {
 
     this._allGamesSubject = new BehaviorSubject<Game[]>([]);
     this.allGames = this._allGamesSubject.asObservable();
+  }
+
+  getMyGames(playerId: string) {
+    return this.http.get<Game[]>(`${environment.apiUrl}/api/players/${playerId}/games`).subscribe(games => {
+      this._allGamesSubject.next(games);
+    });
+  }
+
+  createNewGame(playerId: string, gameMode: number) {
+    return this.http.post<Game>(`${environment.apiUrl}/api/players/${playerId}/games?gameMode=${gameMode}`, {}).subscribe(game => {
+      this._currentGameSubject.next(game);
+    });
   }
 }

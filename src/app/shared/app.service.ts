@@ -27,7 +27,6 @@ export class AppService {
       // store player details local storage to keep user logged in between page refreshes
       localStorage.setItem('player', JSON.stringify(player));
       this._playerSubject.next(player);
-      return player;
     });
   }
 

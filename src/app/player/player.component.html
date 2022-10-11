@@ -14,8 +14,8 @@
 <ng-template #gamesContainer>
   <div class="form-group">
     <select [(ngModel)]="gameMode" class="form-select-sm">
-      <option selected [ngValue]=1> Play Against Computer </option>
       <option [ngValue]=0> Play Locally </option>
+      <option selected [ngValue]=1> Play Against Computer </option>
       <option [ngValue]=2> Play Against Friend </option>
       <option [ngValue]=3> Play Online Multiplayer </option>
     </select>
@@ -26,7 +26,7 @@
     <div *ngFor="let game of allMyGames">
       <p>{{ game.id }}</p>
       <p>{{ game.board }}</p>
-      <p>{{ game.isComplete }}</p>
+      <p>{{ game.isComplete ? "game.winner" : "Resume" }}</p>
     </div>
   </div>
 </ng-template>

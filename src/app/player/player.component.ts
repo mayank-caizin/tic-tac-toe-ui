@@ -23,10 +23,11 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._gameService.getMyGames(this.player.id);
   }
 
   startNewGame() {
-    console.log('Play Against Computer', this.gameMode);
+    this._gameService.createNewGame(this.player.id, this.gameMode);
   }
 
   logOut() {
