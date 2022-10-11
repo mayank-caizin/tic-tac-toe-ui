@@ -1,1 +1,5 @@
-<p>board works!</p>
+<section class="board-container" [ngClass]="{noClick: !boardActive}">
+    <div *ngFor="let square of board">
+      <ttt-square [playerTurn]="game.xTurn" [square]="square" (move)="makeMove($event)"> </ttt-square>
+    </div>
+</section>

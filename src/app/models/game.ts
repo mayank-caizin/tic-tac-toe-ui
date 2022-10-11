@@ -6,5 +6,5 @@ export interface Game {
   xTurn: boolean,
   xPlayerId: string,
   oPlayerId: string,
-  winner: string
+  result: string
 }

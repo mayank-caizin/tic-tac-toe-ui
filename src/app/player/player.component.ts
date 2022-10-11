@@ -13,6 +13,7 @@ export class PlayerComponent implements OnInit {
   @Input() player: Player;
   @Output() logout: EventEmitter<any> = new EventEmitter();
   currentGame: Game;
+  gameBoardActive: boolean;
   allMyGames: Game[];
 
   gameMode = 1;
@@ -28,9 +29,21 @@ export class PlayerComponent implements OnInit {
 
   startNewGame() {
     this._gameService.createNewGame(this.player.id, this.gameMode);
+    this.gameBoardActive = true;
+  }
+
+  async showMyGames() {
+    await this._gameService.getMyGames(this.player.id);
+    this.currentGame = null;
+    this.gameBoardActive = false;
   }
 
   logOut() {
     this.logout.emit('Log me Out');
+  }
+
+  async deleteGame(gameId: string) {
+    await this._gameService.deleteGame(this.player.id, gameId);
+    this.allMyGames = this.allMyGames.filter(game => game.id != gameId);
   }
 }

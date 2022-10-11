@@ -2,16 +2,28 @@
   <div class="card-body">
     <h5 class="card-title">{{player.name}}</h5>
     <p class="card-text">{{player.email}}</p>
+    <button class="btn btn-primary" (click)="showMyGames()">My Games</button>
     <button class="btn btn-danger" (click)="logOut()">Logout</button>
   </div>
 </div>
 
-<div *ngIf="currentGame; else gamesContainer">
-  <p>{{currentGame.id}}</p>
-  <p>{{ currentGame.board }}</p>
+<div *ngIf="currentGame; else gamesListContainer">
+  <h3>Playing against Computer</h3>
+
+  <div class="game-container">
+    <ttt-board [game]="currentGame" [boardActive]="gameBoardActive"></ttt-board>
+
+    <section class="game-status-container">
+      <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Computer's Turn") }}</h2>
+
+      <button *ngIf="currentGame.isComplete" class="btn btn-success">Play Again</button>
+    </section>
+  </div>
 </div>
 
-<ng-template #gamesContainer>
+
+
+<ng-template #gamesListContainer>
   <div class="form-group">
     <select [(ngModel)]="gameMode" class="form-select-sm">
       <option [ngValue]=0> Play Locally </option>
@@ -22,11 +34,14 @@
     <button (click)="startNewGame()">New Game</button>
   </div>
 
-  <div class="games-container" *ngIf="allMyGames.length">
-    <div *ngFor="let game of allMyGames">
-      <p>{{ game.id }}</p>
-      <p>{{ game.board }}</p>
-      <p>{{ game.isComplete ? "game.winner" : "Resume" }}</p>
+  <div class="games-list" *ngIf="allMyGames.length">
+    <div class="card" *ngFor="let game of allMyGames">
+      <div class="card-header">{{ game.id }}
+        <span (click)="deleteGame(game.id)" style="color: red;">X</span></div>
+      <div class="card-body">
+        <h5 class="card-title"> {{ game.board }} </h5>
+        <p class="card-text"> {{ game.isComplete ? game.result : "Resume" }} </p>
+      </div>
     </div>
   </div>
 </ng-template>

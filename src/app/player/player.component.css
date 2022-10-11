@@ -1,5 +1,13 @@
-.games-container > div {
-  padding:10px;
-  border: 1px solid black;
-  margin-bottom: 10px;
+:host > * {
+  padding-bottom: 10px;
+}
+
+.game-container {
+  display: flex;
+}
+
+.game-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -12,6 +12,8 @@ export class GameService {
   private _allGamesSubject: BehaviorSubject<Game[]>;
   public allGames: Observable<Game[]>;
 
+  public bestMove: number = -1;
+
   constructor(private http: HttpClient) {
     this._currentGameSubject = new BehaviorSubject<Game>(null);
     this.currentGame = this._currentGameSubject.asObservable();
@@ -20,15 +22,33 @@ export class GameService {
     this.allGames = this._allGamesSubject.asObservable();
   }
 
-  getMyGames(playerId: string) {
-    return this.http.get<Game[]>(`${environment.apiUrl}/api/players/${playerId}/games`).subscribe(games => {
+  async getMyGames(playerId: string) {
+    await this.http.get<Game[]>(`${environment.apiUrl}/api/players/${playerId}/games`).subscribe(games => {
       this._allGamesSubject.next(games);
     });
   }
 
-  createNewGame(playerId: string, gameMode: number) {
-    return this.http.post<Game>(`${environment.apiUrl}/api/players/${playerId}/games?gameMode=${gameMode}`, {}).subscribe(game => {
+  async createNewGame(playerId: string, gameMode: number) {
+    // this check to be removed after adding more game modes
+    if(gameMode != 1) return;
+
+    await this.http.post<Game>(`${environment.apiUrl}/api/players/${playerId}/games?gameMode=${gameMode}`, {}).subscribe(game => {
       this._currentGameSubject.next(game);
+    });
+  }
+
+  async deleteGame(playerId: string, gameId: string) {
+    await this.http.delete(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`)
+    .subscribe();
+  }
+
+  async makeMove(playerId: string, gameId: string, moveIndex) {
+    await this.http.patch(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`, moveIndex).subscribe();
+  }
+
+  async getMove(playerId: string, gameId: string) {
+    return await this.http.get<number>(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}/move`).subscribe(index => {
+      this.bestMove = index;
     });
   }
 }

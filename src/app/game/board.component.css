@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+}
+.board-container {
+  display: flex;
+  width: 350px;
+  flex-wrap: wrap;
+}
+.noClick {
+  pointer-events: none;
+}
