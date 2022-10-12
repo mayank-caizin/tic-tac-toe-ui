@@ -10,7 +10,7 @@
 <div *ngIf="currentGame; else gamesListContainer">
   <div class="card">
     <div class="card-header">
-      <h3>Playing against Computer</h3>
+      <h3>{{ gameModes[currentGame.gameMode] }}</h3>
     </div>
 
     <div class="card-body display-flex">
