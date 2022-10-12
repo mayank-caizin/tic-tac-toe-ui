@@ -19,7 +19,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(private _gameService: GameService, private _gamelogicService: GameLogicService) {}
 
   ngOnInit(): void {
-    console.log(this.game);
     this.board = this.createBoard();
   }
 
