@@ -42,13 +42,13 @@ export class GameService {
     .subscribe();
   }
 
-  async makeMove(playerId: string, gameId: string, moveIndex) {
-    await this.http.patch(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`, moveIndex).subscribe();
-  }
+  // async makeMove(playerId: string, gameId: string, moveIndex) {
+  //   await this.http.patch(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`, moveIndex).subscribe();
+  // }
 
-  async getMove(playerId: string, gameId: string) {
-    return await this.http.get<number>(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}/move`).subscribe(index => {
-      this.bestMove = index;
-    });
-  }
+  // async getMove(playerId: string, gameId: string) {
+  //   return await this.http.get<number>(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}/move`).subscribe(index => {
+  //     this.bestMove = index;
+  //   });
+  // }
 }

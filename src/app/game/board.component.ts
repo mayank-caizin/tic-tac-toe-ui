@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ComputerMove } from '../gamelogic/computermove';
 import { Game } from '../models/game';
 import { GameService } from '../shared/game.service';
 
@@ -36,19 +37,30 @@ export class BoardComponent implements OnInit {
     this.game.xTurn = !this.game.xTurn;
   }
 
-  async makeMove(boxIndex: number) {
+  makeMove(boxIndex: number) {
     this.makeMoveOnBoard(boxIndex);
-    await this._gameService.makeMove(this.game.xPlayerId, this.game.id, boxIndex);
 
-    if(this.game.gameMode === 1)
-      await this.makeComputerMove();
+    if(this.game.gameMode === 1) {
+      let player = this.game.xTurn ? 'X' : 'O';
+      let cm: ComputerMove = new ComputerMove(this.board, player);
+
+      this.makeMoveOnBoard(cm.findBestMove());
+    }
   }
 
-  async makeComputerMove() {
-    await this._gameService.getMove(this.game.xPlayerId, this.game.id);
-    let index: number = this._gameService.bestMove;
-    await this._gameService.makeMove(this.game.xPlayerId, this.game.id, index);
-    this.makeMoveOnBoard(index);
-  }
+  // async makeMove(boxIndex: number) {
+  //   this.makeMoveOnBoard(boxIndex);
+  //   await this._gameService.makeMove(this.game.xPlayerId, this.game.id, boxIndex);
+
+  //   if(this.game.gameMode === 1)
+  //     await this.makeComputerMove();
+  // }
+
+  // async makeComputerMove() {
+  //   await this._gameService.getMove(this.game.xPlayerId, this.game.id);
+  //   let index: number = this._gameService.bestMove;
+  //   await this._gameService.makeMove(this.game.xPlayerId, this.game.id, index);
+  //   this.makeMoveOnBoard(index);
+  // }
 
 }
