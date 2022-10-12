@@ -14,7 +14,7 @@
     <ttt-board [game]="currentGame" [boardActive]="gameBoardActive"></ttt-board>
 
     <section class="game-status-container">
-      <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Computer's Turn") }}</h2>
+      <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
 
       <button *ngIf="currentGame.isComplete" class="btn btn-success">Play Again</button>
     </section>
