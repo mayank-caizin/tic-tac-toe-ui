@@ -30,7 +30,7 @@ export class GameService {
 
   async createNewGame(playerId: string, gameMode: number) {
     // this check to be removed after adding more game modes
-    if(gameMode != 1) return;
+    if(gameMode > 1) return;
 
     await this.http.post<Game>(`${environment.apiUrl}/api/players/${playerId}/games?gameMode=${gameMode}`, {}).subscribe(game => {
       this._currentGameSubject.next(game);

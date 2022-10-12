@@ -1,5 +1,6 @@
 .container {
   max-width: 720px;
+  margin-top: 2rem;
 }
 
 .container h1 {

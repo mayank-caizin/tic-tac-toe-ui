@@ -17,7 +17,7 @@
       <ttt-board [game]="currentGame" [boardActive]=true></ttt-board>
 
     <section class="game-status-container">
-      <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
+      <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn (X)" : "Opponent's Turn (O)") }}</h2>
 
       <button *ngIf="currentGame.isComplete" class="btn btn-success" (click)="playAgain()">Play Again</button>
     </section>
@@ -47,7 +47,7 @@
         <ttt-board [game]="game" [boardActive]=false></ttt-board>
 
         <section>
-          <h2>{{ game.isComplete ? game.result : (game.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
+          <h2>{{ game.isComplete ? game.result : (game.xTurn ? "Your Turn (X)" : "Opponent's Turn (O)") }}</h2>
 
           <button *ngIf="!game.isComplete" class="btn btn-success" (click)="resumeGame(game)">Resume</button>
         </section>
