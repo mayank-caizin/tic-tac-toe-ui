@@ -1,23 +1,27 @@
-<div class="card" style="width: 18rem;">
+<div class="card">
   <div class="card-body">
     <h5 class="card-title">{{player.name}}</h5>
     <p class="card-text">{{player.email}}</p>
-    <button class="btn btn-primary" (click)="showMyGames()">My Games</button>
-    <button class="btn btn-danger" (click)="logOut()">Logout</button>
+    <button class="btn btn-primary card-link" (click)="showMyGames()">My Games</button>
+    <button class="btn btn-danger card-link" (click)="logOut()">Logout</button>
   </div>
 </div>
 
 <div *ngIf="currentGame; else gamesListContainer">
-  <h3>Playing against Computer</h3>
+  <div class="card">
+    <div class="card-header">
+      <h3>Playing against Computer</h3>
+    </div>
 
-  <div class="game-container">
-    <ttt-board [game]="currentGame" [boardActive]=true></ttt-board>
+    <div class="card-body display-flex">
+      <ttt-board [game]="currentGame" [boardActive]=true></ttt-board>
 
     <section class="game-status-container">
       <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
 
       <button *ngIf="currentGame.isComplete" class="btn btn-success" (click)="playAgain()">Play Again</button>
     </section>
+    </div>
   </div>
 </div>
 
@@ -25,13 +29,13 @@
 
 <ng-template #gamesListContainer>
   <div class="form-group">
-    <select [(ngModel)]="gameMode" class="form-select-sm">
+    <select [(ngModel)]="gameMode" class="form-select">
       <option [ngValue]=0> Play Local </option>
       <option selected [ngValue]=1> Play Against Computer </option>
       <option [ngValue]=2> Play Against Friend </option>
       <option [ngValue]=3> Play Online Multiplayer </option>
     </select>
-    <button (click)="startNewGame()">New Game</button>
+    <button class="btn btn-secondary" (click)="startNewGame()">New Game</button>
   </div>
 
   <div class="games-list" *ngIf="allMyGames.length">
@@ -39,10 +43,10 @@
       <div class="card-header">{{ gameModes[game.gameMode] }}
         <span (click)="deleteGame(game.id)" style="color: red;">X</span></div>
 
-      <div class="card-body list-game">
+      <div class="card-body display-flex">
         <ttt-board [game]="game" [boardActive]=false></ttt-board>
 
-        <section class="game-status-container">
+        <section>
           <h2>{{ game.isComplete ? game.result : (game.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
 
           <button *ngIf="!game.isComplete" class="btn btn-success" (click)="resumeGame(game)">Resume</button>

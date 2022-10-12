@@ -2,17 +2,19 @@
   margin-bottom: 10px;
 }
 
-.game-container {
-  display: flex;
-}
-
-.game-status-container {
+section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.list-game {
+.display-flex {
   display: flex;
+}
+
+.form-select {
+  width: auto;
+  display: inline-block;
+  margin-right: 8px;
 }
