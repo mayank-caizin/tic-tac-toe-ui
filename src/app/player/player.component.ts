@@ -14,6 +14,7 @@ export class PlayerComponent implements OnInit {
   @Output() logout: EventEmitter<any> = new EventEmitter();
   currentGame: Game;
   allMyGames: Game[];
+  gameModes: string[] = [ "Play Local", "Play Against Computer", "Play Against Friend", "Play Online Multiplayer" ];
 
   gameMode = 1;
 
@@ -28,6 +29,16 @@ export class PlayerComponent implements OnInit {
 
   startNewGame() {
     this._gameService.createNewGame(this.player.id, this.gameMode);
+  }
+
+  playAgain() {
+    let gameMode = this.currentGame.gameMode;
+    this.currentGame = null;
+    this._gameService.createNewGame(this.player.id, gameMode);
+  }
+
+  resumeGame(game) {
+    this.currentGame = game;
   }
 
   async showMyGames() {

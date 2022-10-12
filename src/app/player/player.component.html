@@ -16,7 +16,7 @@
     <section class="game-status-container">
       <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
 
-      <button *ngIf="currentGame.isComplete" class="btn btn-success">Play Again</button>
+      <button *ngIf="currentGame.isComplete" class="btn btn-success" (click)="playAgain()">Play Again</button>
     </section>
   </div>
 </div>
@@ -26,7 +26,7 @@
 <ng-template #gamesListContainer>
   <div class="form-group">
     <select [(ngModel)]="gameMode" class="form-select-sm">
-      <option [ngValue]=0> Play Locally </option>
+      <option [ngValue]=0> Play Local </option>
       <option selected [ngValue]=1> Play Against Computer </option>
       <option [ngValue]=2> Play Against Friend </option>
       <option [ngValue]=3> Play Online Multiplayer </option>
@@ -36,11 +36,17 @@
 
   <div class="games-list" *ngIf="allMyGames.length">
     <div class="card" *ngFor="let game of allMyGames">
-      <div class="card-header">{{ game.id }}
+      <div class="card-header">{{ gameModes[game.gameMode] }}
         <span (click)="deleteGame(game.id)" style="color: red;">X</span></div>
-      <div class="card-body">
-        <h5 class="card-title"> {{ game.board }} </h5>
-        <p class="card-text"> {{ game.isComplete ? game.result : "Resume" }} </p>
+
+      <div class="card-body list-game">
+        <ttt-board [game]="game" [boardActive]=false></ttt-board>
+
+        <section class="game-status-container">
+          <h2>{{ game.isComplete ? game.result : (game.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
+
+          <button *ngIf="!game.isComplete" class="btn btn-success" (click)="resumeGame(game)">Resume</button>
+        </section>
       </div>
     </div>
   </div>

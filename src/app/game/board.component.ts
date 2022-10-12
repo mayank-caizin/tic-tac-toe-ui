@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ComputerMove } from '../gamelogic/computermove';
 import { Game } from '../models/game';
 import { GameLogicService } from '../shared/game-logic.service';
@@ -10,7 +10,7 @@ import { GameService } from '../shared/game.service';
   styleUrls: ['./board.component.css'],
   providers: [ GameLogicService ]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   @Input() game: Game;
   @Input() boardActive;
   board = [];
@@ -39,6 +39,7 @@ export class BoardComponent implements OnInit {
     let activePlayer = this.game.xTurn ? 'X' : 'O';
     this.board[boxIndex] = { id: boxIndex, state: activePlayer };
     this.turns++;
+    this.game.xTurn = !this.game.xTurn;
 
     if(this._gamelogicService.checkWinner(this.board)) {
       this.game.result = (activePlayer === 'X' ? "You" : "Opponent") + " Won!";
@@ -51,8 +52,6 @@ export class BoardComponent implements OnInit {
 
       this.saveGame();
     }
-
-    this.game.xTurn = !this.game.xTurn;
   }
 
   makeMove(boxIndex: number) {
@@ -72,6 +71,10 @@ export class BoardComponent implements OnInit {
   saveGame() {
     this.game.board = this._gamelogicService.boardToString(this.board);
     this._gameService.updateGame(this.game.xPlayerId, this.game.id, this.game);
+  }
+
+  ngOnDestroy() {
+    this.saveGame();
   }
 
   // async makeMove(boxIndex: number) {

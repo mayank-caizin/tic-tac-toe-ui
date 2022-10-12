@@ -1,5 +1,5 @@
 :host > * {
-  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .game-container {
@@ -8,6 +8,11 @@
 
 .game-status-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.list-game {
+  display: flex;
 }
