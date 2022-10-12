@@ -1,5 +1,11 @@
 # Tic Tac Toe
 
+
+Demo Video:
+
+https://user-images.githubusercontent.com/113228786/195317574-1199eaa9-8d6e-4352-85c5-bfff96db8aa3.mp4
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
 ## Development server
