@@ -37,7 +37,6 @@ export class BoardComponent implements OnInit {
 
   makeMoveOnBoard(boxIndex: number) {
     let activePlayer = this.game.xTurn ? 'X' : 'O';
-    console.log(this.game.xTurn, activePlayer, boxIndex);
     this.board[boxIndex] = { id: boxIndex, state: activePlayer };
     this.turns++;
 
@@ -47,8 +46,10 @@ export class BoardComponent implements OnInit {
 
     if(this.game.result || this.turns >= 9) {
       this.game.isComplete = true;
-      if(!this.game.result) this.game.result = "It's a DRAW!"
+      if(!this.game.result) this.game.result = "It's a DRAW!";
       this.boardActive = false;
+
+      this.saveGame();
     }
 
     this.game.xTurn = !this.game.xTurn;
@@ -66,6 +67,11 @@ export class BoardComponent implements OnInit {
 
       this.makeMoveOnBoard(moveIndex);
     }
+  }
+
+  saveGame() {
+    this.game.board = this._gamelogicService.boardToString(this.board);
+    this._gameService.updateGame(this.game.xPlayerId, this.game.id, this.game);
   }
 
   // async makeMove(boxIndex: number) {

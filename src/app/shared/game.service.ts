@@ -37,6 +37,10 @@ export class GameService {
     });
   }
 
+  async updateGame(playerId: string, gameId: string, game: Game) {
+    await this.http.put(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`, game).subscribe();
+  }
+
   async deleteGame(playerId: string, gameId: string) {
     await this.http.delete(`${environment.apiUrl}/api/players/${playerId}/games/${gameId}`)
     .subscribe();

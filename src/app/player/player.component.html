@@ -11,7 +11,7 @@
   <h3>Playing against Computer</h3>
 
   <div class="game-container">
-    <ttt-board [game]="currentGame" [boardActive]="gameBoardActive"></ttt-board>
+    <ttt-board [game]="currentGame" [boardActive]=true></ttt-board>
 
     <section class="game-status-container">
       <h2>{{ currentGame.isComplete ? currentGame.result : (currentGame.xTurn ? "Your Turn" : "Opponent's Turn") }}</h2>
